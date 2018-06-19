@@ -1,0 +1,260 @@
+
+html {
+    font: normal normal 16px/1.2 Helvetica, sans-serif; 
+  }
+  
+  body {
+     /* background-color: $body-white; */
+     position:relative;
+     margin: 0 auto;
+  }
+  
+  
+  
+  header {
+     border-bottom: 0.06rem dashed lightblue;
+     margin-bottom: .11rem;
+   }
+  
+  
+  
+  h2 {
+    line-height: 1rem;
+    padding: 0 0;
+    font: lighter normal 2rem Arial, sans-serif;
+    color: blue;
+  }
+  
+  
+  p {
+    font: bold normal 1rem Quicksand, sans-serif;
+    /* color: #584; */
+  
+    line-height: 1rem;
+  
+    padding: 0 0;
+  }
+  
+  .body-chart-data {
+      /* position: relative; */
+      width: 100%;
+  }
+  
+  .company-stock-info {
+    width: 70%;
+    height: 4rem;
+  
+    line-height: 1rem;
+  
+    align-items: flex-end;
+    align-content: flex-end;
+  }
+  
+  
+  .company-ticker-data {
+    width: 29.5%;
+    line-height: .1rem;
+    align-items: flex-end;
+    align-content: flex-end;
+    border-right: .1rem solid lightgray;
+  }
+  
+  .company-ticker-data h2 {
+    color: black;
+  }
+  
+  .chart-header {
+    width: 100%;
+  
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  }
+  
+  .stock-data {
+    width: 80%;
+    margin: .5rem auto;
+    margin-bottom: 3rem;
+  
+    border: .05rem rgb(36, 33, 37) solid;
+    border-radius: .2rem;
+  
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+  
+  
+  .page-setting {
+      width: 100%;
+      border: .05rem #84a solid;
+      border-radius: .2rem;
+  
+      position: relative;
+      display:flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+  }
+  
+  .main {
+    width: 90rem;
+  }
+  
+
+
+.stock-manager-body {
+    background: rgb(255, 255, 150);
+    /* background: rgb(9, 169, 233); */
+  }
+
+  
+  
+.stocks-navigation-bar {
+    /* background-color: rgb(207,166,120); */
+    background: rgb(12, 95, 190);
+    margin: 0;
+    /* width: 100%; */
+    padding: 1em 1rem;
+  }
+
+  
+.stocks-navigation-bar li {
+    display: inline;
+  
+    font-size: 1.2rem;
+    text-shadow: 0 0 0.1rem #333;
+  }
+  
+  .stocks-navigation-bar a {
+    color: #F2F2F2;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    text-decoration: none;
+  }
+  
+  .stocks-navigation-bar a:active {
+    background-color: yellow;
+    color: white;
+  }
+  
+  /* change the color of link on hover*/
+  .stocks-navigation-bar a:hover {
+    background-color: #DDD;
+    color: black;
+    border-radius: 3%;
+    /* transition: all 0s ease; */
+    /* transform: scale(1.5);  */
+  }
+
+
+  
+input[type="submit"] {
+    padding: .4rem;
+    width: 9rem;
+
+    font-size: 1.0rem;
+    color: white;
+
+    background-color: #3D7FCF;
+
+    border: 1px solid #3D7FCF;
+    border-radius: .3rem;
+    
+}
+
+#removeStockTicker {
+    width: 11rem;
+  }
+
+.stock-ticker-input {
+    width: 8rem;
+    height: 1.8rem;
+
+    padding: 0  .4rem;
+
+    border: 0.09rem lightgray solid;
+    border-radius: .25rem;
+
+    text-align: left;
+}
+
+
+.search-stock-ticker {
+    width: 80%;
+  
+    margin: .5rem auto;
+    padding: 1rem auto;
+    padding: 1rem 0;
+  
+    border: 0.1rem solid slateblue;
+    border-radius: .5rem;
+  
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .input-controls {
+    width: 42%;
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+
+  table {
+    width: 40%;
+  }
+
+  table td {
+    border: 0.01rem solid green;
+    background: rgb(245, 232, 54);
+    color: #594A49;
+    border-radius: 0.6rem;
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  
+footer {
+    margin-top: 1rem;
+    border-top: 0.1rem solid slateblue;
+    height: 10rem;
+    /* background: rgb(150, 185, 212); */
+    background: rgb(12, 95, 190);
+  }
+  
+  footer p {
+    font: normal normal 1rem Courier sans-serif;
+    text-align: center;
+    line-height: .7rem;
+    color: rgb(210, 214, 226);
+  }
+  
+  .page-header {
+    border-bottom: 0.1rem solid slateblue;
+    margin-bottom: .11rem;
+  }
+  
+  
+  #primary-content {
+    font: normal normal 3rem Impact, sans-serif;
+    color: #aaa584;
+    text-align: center;
+  
+  }
