@@ -9,14 +9,10 @@ html {
      margin: 0 auto;
   }
   
-  
-  
   header {
      border-bottom: 0.06rem dashed lightblue;
      margin-bottom: .11rem;
    }
-  
-  
   
   h2 {
     line-height: 1rem;
@@ -92,6 +88,9 @@ html {
     align-items: center;
   }
   
+  .stocks-chart {
+    width: 100%;
+  }
   
   .page-setting {
       width: 100%;
@@ -109,17 +108,19 @@ html {
   
   .main {
     width: 90rem;
+
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   
-
-
 .stock-manager-body {
-    background: rgb(255, 255, 150);
+    background: rgb(255, 255, 50);
     /* background: rgb(9, 169, 233); */
   }
 
-  
-  
 .stocks-navigation-bar {
     /* background-color: rgb(207,166,120); */
     background: rgb(12, 95, 190);
@@ -153,10 +154,7 @@ html {
     background-color: #DDD;
     color: black;
     border-radius: 3%;
-    /* transition: all 0s ease; */
-    /* transform: scale(1.5);  */
   }
-
 
   
 input[type="submit"] {
@@ -170,12 +168,7 @@ input[type="submit"] {
 
     border: 1px solid #3D7FCF;
     border-radius: .3rem;
-    
 }
-
-#removeStockTicker {
-    width: 11rem;
-  }
 
 .stock-ticker-input {
     width: 8rem;
@@ -206,6 +199,7 @@ input[type="submit"] {
     justify-content: center;
     align-content: center;
   }
+
   
   .input-controls {
     width: 42%;
@@ -236,7 +230,8 @@ footer {
     border-top: 0.1rem solid slateblue;
     height: 10rem;
     /* background: rgb(150, 185, 212); */
-    background: rgb(12, 95, 190);
+    /* background: rgb(12, 95, 190); */
+    background: darkorange;
   }
   
   footer p {

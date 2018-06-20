@@ -5,7 +5,8 @@ class StockMarket extends Component {
     constructor(props) {
         super(props);
         this.state =  {
-            myCompanies: ['GOOG', 'FB', 'AMZN'],
+            // myCompanies: ['GOOG', 'FB', 'AMZN'],
+            // userStocks: null,
             options: {
                 // title: 'Company Stock Performance',
                 legend: 'none',
@@ -32,7 +33,6 @@ class StockMarket extends Component {
             
             mystocks: [{ company_name:'', ticker:'',  data:[]}],
             stockMetaData: [],
-            // chartData: [],
             stock_activity_date: null,
             real_date_time: null,
             series_status: '1D',
@@ -48,13 +48,21 @@ class StockMarket extends Component {
     }
 
     componentDidMount() {
+        // const userStocks = this.props.userStocks;
+        // let selectedStocks = Object.keys(userStocks).map((key) => {
+        //     return userStocks[key];
+        // })
+       
+
+        // console.log("The User Stocks in the database are: ", userStocks);
         this.getStockPerformanceData();
     }
 
 
     getStockPerformanceData = () => {
         const alpha_api = "CXUNEIO848QDTYRC";
-        const myCompanies = this.state.myCompanies;
+        // const myCompanies = this.state.myCompanies;
+        const myCompanies = this.props.userStocks;
         let mystocks = [];
 
         myCompanies.forEach(e => //console.log("Company: ", e) );
@@ -75,7 +83,7 @@ class StockMarket extends Component {
                 //   console.log("Stock-Performance: ", stockPerform);
 
                 let comp_name = this.getStockMetaData(e);
-                let stocksmeta = this.state.stockMetaData;
+                // let stocksmeta = this.state.stockMetaData;
                 // console.log("Stocks and Names: ", stocksmeta);
                 // console.log("The new company name is:", comp_name);
                 // console.log("Checking company name: ", this.state.companyName);
@@ -105,12 +113,7 @@ class StockMarket extends Component {
         let comp_name = '';
         let metaData = [];
         var quandl_api = "89wdkfPK7YciSxS7kDaZ";
-        // var quandl = "https://www.quandl.com/api/v3/datasets/EOD/AAPL.json?api_key=89wdkfPK7YciSxS7kDaZ";
-        // var quandl = "https://www.quandl.com/api/v3/datasets/EOD/";
-        // var quandl_url = "https://cors-anywhere.herokuapp.com/" + quandl;
-        var quandl_metadata = 'https://www.quandl.com/api/v3/datasets/WIKI/';
-        // var quandl_url = "https://cors-anywhere.herokuapp.com/" + quandl_metadata;
-        // var market_url = quandl_url + stockTicker + "/metadata.json?api_key=" + quandl_api;
+        // var quandl_metadata = 'https://www.quandl.com/api/v3/datasets/WIKI/';
         var market_url = `https://www.quandl.com/api/v3/datasets/WIKI/${ticker}/metadata.json?api_key=${quandl_api}`;
         fetch(market_url)
         .then(response => response.json())
@@ -137,10 +140,10 @@ class StockMarket extends Component {
         .catch(error => {
             console.log(error)
             this.setState((prevState, props) => {
-            return {
-                loading: false,
-                error: 'Error when drawing google chart.'
-            };
+                return {
+                    loading: false,
+                    error: 'Error when drawing google chart.'
+                };
             })
         });
 
@@ -152,7 +155,6 @@ class StockMarket extends Component {
     processStockData = (data) => {
         // console.log(data);
 
-        // let higher_limit = 78;
         const stock_data = Object.keys(data).map((key, index) => data[key]);
         // console.log("Stock Data: ", stock_data);
         const stock_activity_date = Object.keys(stock_data[1])[0].split(" ")[0];
@@ -238,11 +240,7 @@ class StockMarket extends Component {
             var yr = dt.getFullYear();
             var month = this.state.months[mon];
             var date = month + " " + dd + ",'" + yr.toString().substr(-2); // substr(2,2)
-            // var d = dt.getDay();
-            // var day = this.state.weekDays[d];
-
-            // active_date.setDate(active_date.getDate() + inc)
-            // var stime = inc;
+           
             if (series_status === '5M' || series_status === 'YTD' || 
                 series_status === '1Y' || series_status === '5Y') {
                 return date;
@@ -252,6 +250,9 @@ class StockMarket extends Component {
       }
 
     render() {
+        const userStocks = this.props.userStocks;
+        console.log("The Database User Stocks in the database are: ", userStocks);
+
         // const chartData = this.state.chartData;
         // console.log("Length is : ", chartData.length);
 
@@ -259,9 +260,10 @@ class StockMarket extends Component {
         // console.log("My companies are: ", myCompanies);
         const mystocks = this.state.mystocks;
         const metaData = this.state.stockMetaData;
-        console.log("Ready to print: ", metaData);
-        console.log("Length of stocks is: ", metaData.length);
+        // console.log("Ready to print: ", metaData);
+        // console.log("Length of stocks is: ", metaData.length);
         const HowManyStocks = mystocks.length;
+        // console.log("How many stocks are there: ", HowManyStocks);
         
         const stockTicker = mystocks.map((e, indx) => 
         //  <p key={indx}>{e}</p>
@@ -276,32 +278,25 @@ class StockMarket extends Component {
                     </div>
                 </div>
                 <div className="page-setting">
-                    {/* <div className="stock-market-chart-display"> */}
-                        <Chart
-                            chartType="AreaChart"
-                            data={e.data}
-                            options={this.state.options}
-                            // graph_id="AreaChart"
-                            width="100%"
-                            height="365"
-                            legend_toggle
-                            title="ABC"
-                        />
-                    {/* </div> */}
+                    <Chart
+                        chartType="AreaChart"
+                        data={e.data}
+                        options={this.state.options}
+                        // graph_id="AreaChart"
+                        width="100%"
+                        height="365"
+                        legend_toggle
+                        title="ABC"
+                    />
                 </div>
             </div>
         );
 
-        // const stockData = chartData.map((a, indx) => 
-        //     // <p key={indx}>{a[0]} |::| {a[1].f}</p>
-        // );
-        //   console.log("JSX array: ", stockData);
-      
         return (
-            <div className="main">
+            <div className="stocks-chart">
                 {this.state.loading ? <p>Loading ...</p> : null}
                 {this.state.error ? <p>{this.state.error}</p> : null}
-                <div className="search-stock-ticker">
+                {/* <div className="search-stock-ticker">
                     <div className="input-controls">
                         <input className="form-control stock-ticker-input"
                         type="text" name="stock-symbol" id="stock-ticker" 
@@ -311,7 +306,7 @@ class StockMarket extends Component {
                         <input type="submit" value="Remove Stock Ticker" id="removeStockTicker" 
                         title="Click to remove stock ticker from your collection" />
                     </div>
-                </div>
+                </div> */}
                 {stockTicker}
             </div>
         );
