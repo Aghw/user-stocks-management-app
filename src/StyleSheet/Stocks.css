@@ -224,15 +224,19 @@ input[type="submit"] {
 
   table {
     width: 20%;
+    border: 0.01rem solid red;
+    border-radius: 0.6rem;
+    background: rgb(245, 232, 54);
   }
 
   table td {
-    border: 0.01rem solid green;
-    background: rgb(245, 232, 54);
+    border: 0.005rem solid brown;
+    /* background: rgb(245, 232, 54); */
     /* color: #594A49; */
     /* border-radius: 0.6rem; */
     height: 1.2em;
     width: 5rem;
+    padding: .5rem;
   }
 
   

@@ -171,11 +171,13 @@ class StocksPage extends Component {
                     return <StockEntry key={key} entry={this.state.stockEntries[key]} />;
                 })}
 
-                <br />
-                <table id="StockList">
-                    <tbody id="StocksBody" />
-                </table>
-                <br />
+                {/* <br />
+                <div className="main">
+                    <table id="StockList">
+                        <tbody id="StocksBody" />
+                    </table>
+                </div>
+                <br /> */}
 
                 <div className="main">
                     <div className="search-stock-ticker">

@@ -18,8 +18,6 @@ export default class StockEntry extends Component {
         // row.appendChild(input); // append cell to row
         // tbody.appendChild(row);
 
-     
-
         return (
             <p>{this.props.entry}</p>
         );
