@@ -115,6 +115,16 @@ html {
     flex-wrap: wrap;
     justify-content: center;
   }
+/* 
+  .main-stocks-chart-page {
+    width: 90rem;
+
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  } */
   
 .stock-manager-body {
     background: rgb(255, 255, 50);
@@ -123,7 +133,8 @@ html {
 
 .stocks-navigation-bar {
     /* background-color: rgb(207,166,120); */
-    background: rgb(12, 95, 190);
+    /* background: rgb(12, 95, 190); */
+    background:  darkorange;
     margin: 0;
     /* width: 100%; */
     padding: 1em 1rem;
@@ -212,22 +223,23 @@ input[type="submit"] {
 
 
   table {
-    width: 40%;
+    width: 20%;
   }
 
   table td {
     border: 0.01rem solid green;
     background: rgb(245, 232, 54);
-    color: #594A49;
-    border-radius: 0.6rem;
+    /* color: #594A49; */
+    /* border-radius: 0.6rem; */
     height: 1.2em;
-    width: 1.2em;
+    width: 5rem;
   }
 
   
 footer {
     margin-top: 1rem;
-    border-top: 0.1rem solid slateblue;
+    padding-top: 1rem;
+    /* border-top: 0.1rem solid slateblue; */
     height: 10rem;
     /* background: rgb(150, 185, 212); */
     /* background: rgb(12, 95, 190); */

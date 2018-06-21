@@ -12,10 +12,29 @@ class StocksPage extends Component {
         super(props);
         this.state = {
             stockEntries: {},
+            myStocks: [],
             entryInput: ''
         }
     }
     
+    componentWillMount() {
+        // const stocks = this.state.stockEntries;
+        // const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+        // console.log("All the stocks in the list are: ", userStocks);
+        // console.log("Will Mount the length of stocks is : ", userStocks.length);
+
+        const stocks = this.state.stockEntries;
+        console.log("Will mount");
+        console.log("All my stock objects: ", stocks);
+        const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
+
+        // this.setState(() => {
+        //     return {
+        //         myStocks: myStocks
+        //     };
+        // });
+        console.log("All my stocks: ", myStocks);
+    }
     // to check to see if there is a loged in user,
     // we should add componentDidMount
     componentDidMount() {
@@ -42,6 +61,18 @@ class StocksPage extends Component {
                         };
                     });
                 });
+        
+        const stocks = this.state.stockEntries;
+        console.log("Did mount");
+        console.log("All my stock objects: ", stocks);
+        const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
+
+        // this.setState(() => {
+        //     return {
+        //         myStocks: myStocks
+        //     };
+        // });
+        console.log("All my stocks: ", myStocks);
     }
 
     onInputChange = (e) => {
@@ -105,6 +136,20 @@ class StocksPage extends Component {
         })
     }
 
+    getUserStocks = () => {
+        const stocks = this.state.stockEntries;
+        console.log("In get user stocks");
+        console.log("All my stock objects: ", stocks);
+        const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
+
+        // this.setState(() => {
+        //     return {
+        //         myStocks: myStocks
+        //     };
+        // });
+        console.log("All my stocks: ", myStocks);
+    }
+
     render() {
         console.log("These stocks are in database: ", this.state.myStocks);
         const stocks = this.state.stockEntries;
@@ -112,15 +157,25 @@ class StocksPage extends Component {
         console.log("All the stocks in the list are: ", userStocks);
         console.log("THe length of stocks is : ", userStocks.length);
 
+        this.getUserStocks();
+
         const stocksChart = ( (userStocks.length > 0) ? 
                         <StockMarket userStocks= {userStocks} /> :
                         <StockMarket userStocks= {['GOOG']} /> );
         return (
-            <div>
-                <h1 iid="primary-content">My Stocks</h1>
+            <div className="main-stocks-chart-page">
+                {/* <h1 id="primary-content">My Stocks</h1> */}
+                <h1>My Stocks</h1>
+
                 {Object.keys(this.state.stockEntries).map((key) => {
                     return <StockEntry key={key} entry={this.state.stockEntries[key]} />;
                 })}
+
+                <br />
+                <table id="StockList">
+                    <tbody id="StocksBody" />
+                </table>
+                <br />
 
                 <div className="main">
                     <div className="search-stock-ticker">
@@ -140,8 +195,8 @@ class StocksPage extends Component {
                     
                     {/* <StockMarket userStocks={this.state.myStocks}/> */}
                     {/* <StockMarket userStocks={(userStocks.length > 0) ? userStocks : ['GOOG']}/> */}
-                    {/* {stocksChart} */}
-                    {<StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} />}
+                    {stocksChart}
+                    {/* {<StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} />} */}
                 </div>
             </div>
         );

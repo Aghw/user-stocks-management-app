@@ -5,8 +5,6 @@ class StockMarket extends Component {
     constructor(props) {
         super(props);
         this.state =  {
-            // myCompanies: ['GOOG', 'FB', 'AMZN'],
-            // userStocks: null,
             options: {
                 // title: 'Company Stock Performance',
                 legend: 'none',
@@ -296,17 +294,6 @@ class StockMarket extends Component {
             <div className="stocks-chart">
                 {this.state.loading ? <p>Loading ...</p> : null}
                 {this.state.error ? <p>{this.state.error}</p> : null}
-                {/* <div className="search-stock-ticker">
-                    <div className="input-controls">
-                        <input className="form-control stock-ticker-input"
-                        type="text" name="stock-symbol" id="stock-ticker" 
-                        placeholder="Enter Stock Ticker" />
-                        <input type="submit" value="Add Stock Ticker" id="addStockTicker" 
-                        title="Click to add stock ticker to your collection" />
-                        <input type="submit" value="Remove Stock Ticker" id="removeStockTicker" 
-                        title="Click to remove stock ticker from your collection" />
-                    </div>
-                </div> */}
                 {stockTicker}
             </div>
         );
