@@ -23,17 +23,17 @@ class StocksPage extends Component {
         // console.log("All the stocks in the list are: ", userStocks);
         // console.log("Will Mount the length of stocks is : ", userStocks.length);
 
-        const stocks = this.state.stockEntries;
-        console.log("Will mount");
-        console.log("All my stock objects: ", stocks);
-        const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
+        // const stocks = this.state.stockEntries;
+        // console.log("Will mount");
+        // console.log("All my stock objects: ", stocks);
+        // const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
         // this.setState(() => {
         //     return {
         //         myStocks: myStocks
         //     };
         // });
-        console.log("All my stocks: ", myStocks);
+        // console.log("All my stocks: ", myStocks);
     }
     // to check to see if there is a loged in user,
     // we should add componentDidMount
@@ -62,22 +62,22 @@ class StocksPage extends Component {
                     });
                 });
         
-        const stocks = this.state.stockEntries;
-        console.log("Did mount");
-        console.log("All my stock objects: ", stocks);
-        const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
+        // const stocks = this.state.stockEntries;
+        // console.log("Did mount");
+        // console.log("All my stock objects: ", stocks);
+        // const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
         // this.setState(() => {
         //     return {
         //         myStocks: myStocks
         //     };
         // });
-        console.log("All my stocks: ", myStocks);
+        // console.log("All my stocks: ", myStocks);
     }
 
     onInputChange = (e) => {
         e.preventDefault();
-        const newValue = e.target.value;
+        const newValue = e.target.value.toUpperCase().trim();
         this.setState(() => {
             return {
                 entryInput: newValue
@@ -113,7 +113,8 @@ class StocksPage extends Component {
 
     removeStock = (e) => {
         e.preventDefault();
-        // alert('Implement addEntry');
+        const lookup = this.state.entryInput;
+        // console.log("The Stock to remove is:", lookup);
 
         // I create a ref to pretty much anything. 
         //Think of it like a namespace or a collection
@@ -126,9 +127,26 @@ class StocksPage extends Component {
         // objects to that reference.
         // I can also make my references dynamic.
         // I can do it dynamic as follows.
-        database.ref(`/users/${auth.currentUser.uid}`) // this is making a reference
-            .remove(this.state.entryInput);             // to the current user.
+        let uid = auth.currentUser.uid;
+        // console.log("User ID: ", uid);
+        const ref = database.ref(`/users/${uid}`); // this is making a reference
+        // var ref = database.ref(`/users/${auth.currentUser.uid}`);
+        // console.log("The reference is: ", ref);
+        const stocks = this.state.stockEntries;
+        let result = [];
 
+        for(var key in stocks) {
+            var value = stocks[key];
+            result.push({key, value});
+        }
+
+        let entry = result.find(item => item.value === lookup);
+        // console.log("Result is: ", result);
+        // console.log("The key of the lookup item is: ", entry);
+        // const itemKey = entryKey.key.substring(1, entry.length);
+        // console.log("The new item id is: ", itemKey);
+        ref.child(entry.key).remove();     // remove item
+            
         this.setState(() => {
             return {
                 entryInput: ''
@@ -138,8 +156,8 @@ class StocksPage extends Component {
 
     getUserStocks = () => {
         const stocks = this.state.stockEntries;
-        console.log("In get user stocks");
-        console.log("All my stock objects: ", stocks);
+        // console.log("In get user stocks");
+        // console.log("All my stock objects: ", stocks);
         const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
         // this.setState(() => {
@@ -147,25 +165,33 @@ class StocksPage extends Component {
         //         myStocks: myStocks
         //     };
         // });
-        console.log("All my stocks: ", myStocks);
+        // console.log("All my stocks: ", myStocks);
+        return myStocks;
     }
 
     render() {
         console.log("These stocks are in database: ", this.state.myStocks);
         const stocks = this.state.stockEntries;
-        const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
-        console.log("All the stocks in the list are: ", userStocks);
-        console.log("THe length of stocks is : ", userStocks.length);
+        // const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+       
 
-        this.getUserStocks();
+        const mystocks = this.getUserStocks();
+        //  this.setState(() => {
+        //     return {
+        //         myStocks: mystocks
+        //     };
+        // });
+        // const userStocks = this.state.myStocks;
+        console.log("All the stocks in the list are: ", mystocks);
+        console.log("THe length of stocks is : ", mystocks.length);
 
-        const stocksChart = ( (userStocks.length > 0) ? 
-                        <StockMarket userStocks= {userStocks} /> :
-                        <StockMarket userStocks= {['GOOG']} /> );
+        const stocksChart = ( (mystocks.length > 0) ? 
+                        <StockMarket userStocks= {mystocks} /> :
+                        <StockMarket userStocks= {['GOOG', 'FB']} /> );
         return (
             <div className="main-stocks-chart-page">
                 {/* <h1 id="primary-content">My Stocks</h1> */}
-                <h1>My Stocks</h1>
+                <h1 id="secondary-content">My Stocks</h1>
 
                 {Object.keys(this.state.stockEntries).map((key) => {
                     return <StockEntry key={key} entry={this.state.stockEntries[key]} />;

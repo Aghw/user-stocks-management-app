@@ -24,7 +24,7 @@ class StockMarket extends Component {
                              // gridlines: { count: 4 }
                  },
                  series: {
-                    0: { color: '#f1ca3a' }, //f1ca3a, e2431e, e7711b, 6f9654, 1c91c0, 43459d
+                    0: { color: '#43459d' }, //f1ca3a, e2431e, e7711b, 6f9654, 1c91c0, 43459d
                     1: { color: '#e7711b' },
                   },
               },
@@ -120,7 +120,7 @@ class StockMarket extends Component {
             let name = data.dataset.name;
             // console.log("Company Name: ", name)
             name = name.split("Prices")[0].trim();
-            // console.log("Revised  Company name: ", name);
+            console.log("Revised  Company name: ", name);
             comp_name = name;
 
             metaData = this.state.stockMetaData;
@@ -214,11 +214,12 @@ class StockMarket extends Component {
       hAxisValues = (inc) => {
         let series_status = '1D';
         let sample_interval = 5; // time interval
+        var active_date = null;
 
         if (series_status === '1D') {
 
             var howMany = inc * sample_interval;
-            var active_date = new Date(this.state.real_date_time);
+            active_date = new Date(this.state.real_date_time);
 
             active_date.setMinutes(active_date.getMinutes() + howMany)
 
@@ -231,7 +232,7 @@ class StockMarket extends Component {
 
             return  hr + ":" + mnts + " " + tday;
           } else {
-            var active_date = Object.keys(this.state.stock_data[1])[this.state.higher_limit  - inc];
+            active_date = Object.keys(this.state.stock_data[1])[this.state.higher_limit  - inc];
             var dt = new Date(active_date);
             var mon = dt.getMonth() + 1;
             var dd = dt.getDate();

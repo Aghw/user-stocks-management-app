@@ -6,7 +6,7 @@ import HomePage from './HomePage';
 import StockPage from './StocksPage';
 import NavigationBar from './NavigationBar';
 import './StyleSheet/Stocks.css';
-
+// import Syncopate from url('https://fonts.googleapis.com/css?family=Syncopate')
 import {
   BrowserRouter as Router, Route
 } from 'react-router-dom';
@@ -17,7 +17,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React Stock Management App</h1>
+          <h1 className="App-title">Welcome to Stock Management App</h1>
         </header>
 
         <div className='stock-manager-body'>

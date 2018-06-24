@@ -10,8 +10,9 @@ html {
   }
   
   header {
-     border-bottom: 0.06rem dashed lightblue;
-     margin-bottom: .11rem;
+     /* border-bottom: 0.06rem dashed lightblue; */
+     border-bottom: 0.04rem dotted rgb(255, 255, 50);
+     /* margin-bottom: .11rem; */
    }
   
   h2 {
@@ -162,7 +163,7 @@ html {
   
   /* change the color of link on hover*/
   .stocks-navigation-bar a:hover {
-    background-color: #DDD;
+    background-color: rgb(255, 255, 50);
     color: black;
     border-radius: 3%;
   }
@@ -263,9 +264,9 @@ footer {
   }
   
   
-  #primary-content {
-    font: normal normal 3rem Impact, sans-serif;
-    color: #aaa584;
+  #primary-content, #secondary-content, #third-content {
+    font: 600 normal 2rem Quicksand, Comic Sans MS, Courier, Arial, sans-serif;
+    /* color: #aaa584; */
     text-align: center;
   
   }
