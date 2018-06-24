@@ -250,7 +250,7 @@ class StockMarket extends Component {
 
     render() {
         const userStocks = this.props.userStocks;
-        console.log("The Database User Stocks in the database are: ", userStocks);
+        // console.log("The Database User Stocks in the database are: ", userStocks);
 
         // const chartData = this.state.chartData;
         // console.log("Length is : ", chartData.length);

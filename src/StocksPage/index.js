@@ -14,8 +14,9 @@ class StocksPage extends Component {
             stockEntries: {},
             myStocks: [],
             entryInput: '',
-            isAuthenticating: true,
-            isAuthenticated: false
+            loading: true
+            // isAuthenticating: true,
+            // isAuthenticated: false
         }
     }
     
@@ -37,6 +38,22 @@ class StocksPage extends Component {
         // });
         // console.log("All my stocks: ", myStocks);
     }
+
+    // to get firebase data
+    getFirebaseData = () => {
+        database.ref(`/users/${auth.currentUser.uid}`) // this is pretty much an event listener
+        .on('value', (snapshot) => { // firebase broadcasts when database values change 
+            //  console.log(snapshot);   
+            this.setState(() => {
+                return {
+                    stockEntries: snapshot.val() || {},
+                    loading: false
+                };
+            });
+        });
+
+    }
+
     // to check to see if there is a loged in user,
     // we should add componentDidMount
     componentDidMount() {
@@ -47,17 +64,17 @@ class StocksPage extends Component {
         //     this.setState({ isAuthenticating: false });
         // }
 
-        this.authUser().then((user) => {
-            this.userHasAuthenticated(true);
-            this.setState({ isAuthenticating: false });
-        }, (error) => {
-            this.setState({ isAuthenticating: false });
-            alert('You must be logged in');
-        });
+        // this.authUser().then((user) => {
+        //     this.userHasAuthenticated(true);
+        //     this.setState({ isAuthenticating: false });
+        // }, (error) => {
+        //     this.setState({ isAuthenticating: false });
+        //     alert('You must be logged in');
+        // });
 
 
          if (!auth.currentUser) {
-            alert('You must be logged in');
+            alert('You must first log in to be authenticated.');
             return this.props.history.push('/'); // to redirect to home page
                                     // basically forcing the browser to go to homepage
             // this.setState({ isAuthenticating: false });
@@ -70,16 +87,20 @@ class StocksPage extends Component {
         // populate our state with database journal entries.
         // Note: eventhough the data in the database looks like an array,
         // it is treated as object.
-        database.ref(`/users/${auth.currentUser.uid}`) // this is pretty much an event listener
-                .on('value', (snapshot) => { // firebase broadcasts when database values change 
-                    //  console.log(snapshot);   
-                    this.setState(() => {
-                        return {
-                            stockEntries: snapshot.val() || {}
-                        };
-                    });
-                });
+        // database.ref(`/users/${auth.currentUser.uid}`) // this is pretty much an event listener
+        //         .on('value', (snapshot) => { // firebase broadcasts when database values change 
+        //             //  console.log(snapshot);   
+        //             this.setState(() => {
+        //                 return {
+        //                     stockEntries: snapshot.val() || {},
+        //                     loading: false
+        //                 };
+        //             });
+        //         });
         
+
+        // get data from firebase into state variable
+        this.getFirebaseData();
         // const stocks = this.state.stockEntries;
         console.log("Did mount");
         // console.log("All my stock objects: ", stocks);
@@ -120,38 +141,26 @@ class StocksPage extends Component {
         // I can do it dynamic as follows.
         database.ref(`/users/${auth.currentUser.uid}`) // this is making a reference
             .push(this.state.entryInput);             // to the current user.
-
+        
+        // ReactDOM.render(this.state.stockEntries, document.getElementById('root'));
         this.setState(() => {
             return {
                 entryInput: ''
             };
         })
+
+        this.getFirebaseData();
     }
 
 
     removeStock = (e) => {
         e.preventDefault();
         const lookup = this.state.entryInput;
-        // console.log("The Stock to remove is:", lookup);
 
-        // I create a ref to pretty much anything. 
-        //Think of it like a namespace or a collection
-        // I can create a ref (reference) and push things to that ref,
-        // and it would be a collection of items.
-        // Here, I'm going to add code to get input from the state,
-        // and store in my database.
-        // a reference is just a string. A string that refers to a collection
-        // Once I have a reference, I can do different things like push
-        // objects to that reference.
-        // I can also make my references dynamic.
-        // I can do it dynamic as follows.
-        let uid = auth.currentUser.uid;
-        // console.log("User ID: ", uid);
-        const ref = database.ref(`/users/${uid}`); // this is making a reference
-        // var ref = database.ref(`/users/${auth.currentUser.uid}`);
-        // console.log("The reference is: ", ref);
+        // local variable to hold user id.
+        const ref = database.ref(`/users/${auth.currentUser.uid}`); // this is making a reference
         const stocks = this.state.stockEntries;
-        let result = [];
+        let result = []; // array to hold all the entries in firebase database
 
         for(var key in stocks) {
             var value = stocks[key];
@@ -159,7 +168,6 @@ class StocksPage extends Component {
         }
 
         let entry = result.find(item => item.value === lookup);
-        // console.log("Result is: ", result);
         // console.log("The key of the lookup item is: ", entry);
         // const itemKey = entryKey.key.substring(1, entry.length);
         // console.log("The new item id is: ", itemKey);
@@ -178,37 +186,53 @@ class StocksPage extends Component {
         // console.log("All my stock objects: ", stocks);
         const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
-        // this.setState(() => {
-        //     return {
-        //         myStocks: myStocks
-        //     };
+        var tbody = document.getElementById("StocksBody");
+       
+        myStocks.forEach(function(cellVal) {
+            var row = document.createElement("tr"); // create row object
+            var cell = document.createElement("td"); // create cell object
+            cell.appendChild(document.createTextNode("abc")); // insert value into cell
+            row.appendChild(cell); // append cell to row
+            tbody.appendChild(row);
+        });
+
+
+        // myStocks.forEach(dataRow => {
+        //     var row = document.createElement("tr"); // create row object
+
+        //     dataRow.forEach(cellVal => {
+        //         var cell = document.createElement("td"); // create cell object
+        //         cell.appendChild(document.createTextNode(cellVal)); // insert value into cell
+        //         row.appendChild(cell); // append cell to row
+        //     });
+        //     tbody.appendChild(row);
         // });
-        // console.log("All my stocks: ", myStocks);
         return myStocks;
     }
 
-    authUser = () => {
-        return new Promise((resolve, reject) => {
-            auth.onAuthStateChanged((user) => {
-                if (user) {
-                    resolve(user);
-                } else {
-                    reject('User not logged in yet');
-                }
-            });
-        });
-    }
+    // authUser = () => {
+    //     return new Promise((resolve, reject) => {
+    //         auth.onAuthStateChanged((user) => {
+    //             if (user) {
+    //                 resolve(user);
+    //             } else {
+    //                 reject('User not logged in yet');
+    //             }
+    //         });
+    //     });
+    // }
 
-    userHasAuthenticated = (verified) => {
-        this.setState({ isAuthenticated: verified });
-    }
+    // userHasAuthenticated = (verified) => {
+    //     this.setState({ isAuthenticated: verified });
+    // }
 
     render() {
-        if (this.state.isAuthenticating) return null;
+        // if (this.state.isAuthenticating) return null;
 
-        console.log("These stocks are in database: ", this.state.myStocks);
+        // console.log("These stocks are in database: ", this.state.myStocks);
         const stocks = this.state.stockEntries;
         const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+
        if (userStocks.length === 0) return null;
 
         // const mystocks = this.getUserStocks();
@@ -221,6 +245,8 @@ class StocksPage extends Component {
                         <StockMarket userStocks= {['GOOG', 'FB']} /> );
         return (
             <div className="main-stocks-chart-page">
+                {this.state.loading ? <p>Loading ...</p> : null}
+                {this.state.error ? <p>{this.state.error}</p> : null}
                 {/* <h1 id="primary-content">My Stocks</h1> */}
                 <h1 id="secondary-content">My Stocks</h1>
 
@@ -235,7 +261,7 @@ class StocksPage extends Component {
                     </table>
                 </div>
                 <br /> */}
-
+                {/* {this.getUserStocks()} */}
                 <div className="main">
                     <div className="search-stock-ticker">
                         <div className="input-controls">
