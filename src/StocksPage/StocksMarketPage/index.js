@@ -120,7 +120,7 @@ class StockMarket extends Component {
             let name = data.dataset.name;
             // console.log("Company Name: ", name)
             name = name.split("Prices")[0].trim();
-            console.log("Revised  Company name: ", name);
+            // console.log("Revised  Company name: ", name);
             comp_name = name;
 
             metaData = this.state.stockMetaData;
@@ -249,7 +249,7 @@ class StockMarket extends Component {
       }
 
     render() {
-        const userStocks = this.props.userStocks;
+        // const userStocks = this.props.userStocks;
         // console.log("The Database User Stocks in the database are: ", userStocks);
 
         // const chartData = this.state.chartData;
@@ -273,7 +273,9 @@ class StockMarket extends Component {
                         <p id="activity-date">{this.state.stock_activity_date}</p>
                     </div>
                     <div className="company-stock-info">
-                        <h2>{(metaData.length === HowManyStocks) ? metaData[indx].companyName : 'NON'}</h2>
+                        {/* <h2>{(metaData.length === HowManyStocks) ? metaData[indx].companyName : 'NON'}</h2> */}
+                        <h2>{(metaData.length === HowManyStocks) ? 
+                            metaData.find(s => s.ticker === e.ticker).companyName : 'NON'}</h2>
                     </div>
                 </div>
                 <div className="page-setting">

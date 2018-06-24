@@ -6,13 +6,15 @@ import StockMarket from './StocksMarketPage';
 const auth = firebase.auth();
 // initiate firebase database
 const database = firebase.database();
+// How many stocks
+let HowManyStocks = 0;
 
 class StocksPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stockEntries: {},
-            myStocks: [],
+            // myStocks: [],
             entryInput: '',
             loading: true
             // isAuthenticating: true,
@@ -20,25 +22,6 @@ class StocksPage extends Component {
         }
     }
     
-    componentWillMount() {
-        // const stocks = this.state.stockEntries;
-        // const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
-        // console.log("All the stocks in the list are: ", userStocks);
-        // console.log("Will Mount the length of stocks is : ", userStocks.length);
-
-        // const stocks = this.state.stockEntries;
-        console.log("Will mount");
-        // console.log("All my stock objects: ", stocks);
-        // const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
-
-        // this.setState(() => {
-        //     return {
-        //         myStocks: myStocks
-        //     };
-        // });
-        // console.log("All my stocks: ", myStocks);
-    }
-
     // to get firebase data
     getFirebaseData = () => {
         database.ref(`/users/${auth.currentUser.uid}`) // this is pretty much an event listener
@@ -51,7 +34,8 @@ class StocksPage extends Component {
                 };
             });
         });
-
+        // HowManyStocks = Object.keys(this.state.stockEntries).length;
+        // console.log("StockEntries Count: ", HowManyStocks);
     }
 
     // to check to see if there is a loged in user,
@@ -101,6 +85,10 @@ class StocksPage extends Component {
 
         // get data from firebase into state variable
         this.getFirebaseData();
+
+        const stocks = this.state.stockEntries;
+        const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+        // HowManyStocks = userStocks.length;
         // const stocks = this.state.stockEntries;
         console.log("Did mount");
         // console.log("All my stock objects: ", stocks);
@@ -142,6 +130,9 @@ class StocksPage extends Component {
         database.ref(`/users/${auth.currentUser.uid}`) // this is making a reference
             .push(this.state.entryInput);             // to the current user.
         
+        HowManyStocks = HowManyStocks + 1;
+        console.log("After adding, now the number stocks in the database are: ", HowManyStocks);
+
         // ReactDOM.render(this.state.stockEntries, document.getElementById('root'));
         this.setState(() => {
             return {
@@ -172,7 +163,9 @@ class StocksPage extends Component {
         // const itemKey = entryKey.key.substring(1, entry.length);
         // console.log("The new item id is: ", itemKey);
         ref.child(entry.key).remove();     // remove item
-            
+        HowManyStocks = result.length - 1;
+        console.log("After removing, now the number stocks in the database are: ", HowManyStocks);
+
         this.setState(() => {
             return {
                 entryInput: ''
@@ -232,17 +225,19 @@ class StocksPage extends Component {
         // console.log("These stocks are in database: ", this.state.myStocks);
         const stocks = this.state.stockEntries;
         const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+        console.log("the number of stocks in the databse are: ", HowManyStocks);
 
-       if (userStocks.length === 0) return null;
-
+       if (userStocks.length === 0 ) return null;
+    //    HowManyStocks = userStocks.length;
         // const mystocks = this.getUserStocks();
         // const userStocks = this.state.myStocks;
         console.log("All the stocks in the list are: ", userStocks);
         console.log("THe length of stocks is : ", userStocks.length);
 
-        const stocksChart = ( (userStocks.length > 0) ? 
-                        <StockMarket userStocks= {userStocks} /> :
-                        <StockMarket userStocks= {['GOOG', 'FB']} /> );
+        // const stocksChart = ( (userStocks.length > 0) ? 
+        //                 <StockMarket userStocks= {userStocks} /> :
+        //                 <StockMarket userStocks= {['GOOG', 'FB']} /> );
+        const stocksChart =  <StockMarket userStocks= {userStocks} />;
         return (
             <div className="main-stocks-chart-page">
                 {this.state.loading ? <p>Loading ...</p> : null}
@@ -278,10 +273,11 @@ class StocksPage extends Component {
                         </div>
                     </div>
                     
-                    {/* <StockMarket userStocks={this.state.myStocks}/> */}
-                    {/* <StockMarket userStocks={(userStocks.length > 0) ? userStocks : ['GOOG']}/> */}
-                    {stocksChart}
-                    {/* {<StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} />} */}
+                    {/* {stocksChart} */}
+                    {/* <StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} /> */}
+                    { <StockMarket userStocks= {userStocks} />}
+                    {/* { <StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} />} */}
+
                 </div>
             </div>
         );
