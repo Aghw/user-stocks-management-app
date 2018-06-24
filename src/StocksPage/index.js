@@ -13,7 +13,9 @@ class StocksPage extends Component {
         this.state = {
             stockEntries: {},
             myStocks: [],
-            entryInput: ''
+            entryInput: '',
+            isAuthenticating: true,
+            isAuthenticated: false
         }
     }
     
@@ -24,7 +26,7 @@ class StocksPage extends Component {
         // console.log("Will Mount the length of stocks is : ", userStocks.length);
 
         // const stocks = this.state.stockEntries;
-        // console.log("Will mount");
+        console.log("Will mount");
         // console.log("All my stock objects: ", stocks);
         // const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
@@ -38,12 +40,28 @@ class StocksPage extends Component {
     // to check to see if there is a loged in user,
     // we should add componentDidMount
     componentDidMount() {
-        if (!auth.currentUser) {
+        // if (!auth.currentUser) {
+        //     alert('You must be logged in');
+        //     return this.props.history.push('/'); // to redirect to home page
+        //                             // basically forcing the browser to go to homepage
+        //     this.setState({ isAuthenticating: false });
+        // }
+
+        this.authUser().then((user) => {
+            this.userHasAuthenticated(true);
+            this.setState({ isAuthenticating: false });
+        }, (error) => {
+            this.setState({ isAuthenticating: false });
+            alert('You must be logged in');
+        });
+
+
+         if (!auth.currentUser) {
             alert('You must be logged in');
             return this.props.history.push('/'); // to redirect to home page
                                     // basically forcing the browser to go to homepage
+            // this.setState({ isAuthenticating: false });
         }
-
         // showing records is actuall pretty similar.
         // It uses the exact syntax as adding record. 
         // Only difference is you have to use different function instead of push.
@@ -63,7 +81,7 @@ class StocksPage extends Component {
                 });
         
         // const stocks = this.state.stockEntries;
-        // console.log("Did mount");
+        console.log("Did mount");
         // console.log("All my stock objects: ", stocks);
         // const myStocks = Object.keys(stocks).map((key, index) => stocks[key]);
 
@@ -169,24 +187,37 @@ class StocksPage extends Component {
         return myStocks;
     }
 
+    authUser = () => {
+        return new Promise((resolve, reject) => {
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    resolve(user);
+                } else {
+                    reject('User not logged in yet');
+                }
+            });
+        });
+    }
+
+    userHasAuthenticated = (verified) => {
+        this.setState({ isAuthenticated: verified });
+    }
+
     render() {
+        if (this.state.isAuthenticating) return null;
+
         console.log("These stocks are in database: ", this.state.myStocks);
         const stocks = this.state.stockEntries;
-        // const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
-       
+        const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
+       if (userStocks.length === 0) return null;
 
-        const mystocks = this.getUserStocks();
-        //  this.setState(() => {
-        //     return {
-        //         myStocks: mystocks
-        //     };
-        // });
+        // const mystocks = this.getUserStocks();
         // const userStocks = this.state.myStocks;
-        console.log("All the stocks in the list are: ", mystocks);
-        console.log("THe length of stocks is : ", mystocks.length);
+        console.log("All the stocks in the list are: ", userStocks);
+        console.log("THe length of stocks is : ", userStocks.length);
 
-        const stocksChart = ( (mystocks.length > 0) ? 
-                        <StockMarket userStocks= {mystocks} /> :
+        const stocksChart = ( (userStocks.length > 0) ? 
+                        <StockMarket userStocks= {userStocks} /> :
                         <StockMarket userStocks= {['GOOG', 'FB']} /> );
         return (
             <div className="main-stocks-chart-page">
