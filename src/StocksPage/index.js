@@ -275,7 +275,10 @@ class StocksPage extends Component {
                     
                     {/* {stocksChart} */}
                     {/* <StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} /> */}
-                    { <StockMarket userStocks= {userStocks} />}
+                    {/* { <StockMarket userStocks= {userStocks} />} */}
+                    {Object.keys(this.state.stockEntries).map((key) => {
+                        return <StockMarket key={key} userStocks={this.state.stockEntries[key]} />;
+                    })}
                     {/* { <StockMarket userStocks= {Object.keys(this.state.stockEntries).map((key, index) => this.state.stockEntries[key])} />} */}
 
                 </div>

@@ -60,11 +60,14 @@ class StockMarket extends Component {
     getStockPerformanceData = () => {
         const alpha_api = "CXUNEIO848QDTYRC";
         // const myCompanies = this.state.myCompanies;
+        
         const myCompanies = this.props.userStocks;
+        console.log("The stocks are: ", myCompanies);
         let mystocks = [];
-
-        myCompanies.forEach(e => //console.log("Company: ", e) );
-        {
+        console.log("The length of this list is: ", myCompanies.length);
+        // myCompanies.forEach(e => //console.log("Company: ", e) );
+        // {
+        let e = this.props.userStocks
             // console.log("Stock Company: ", e);
             
             const market_url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${e}&interval=5min&apikey=${alpha_api}`;
@@ -103,7 +106,7 @@ class StockMarket extends Component {
                 };
                 })
             });
-        });
+        // });
     }
 
 
