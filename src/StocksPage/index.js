@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import StockEntry from './StockEntry';
+// import StockTableEntry from './StockTableEntry';
 import StockMarket from './StocksMarketPage';
 
 const auth = firebase.auth();
 // initiate firebase database
 const database = firebase.database();
 
+
 class StocksPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stockEntries: {},
-            // myStocks: [],
             entryInput: '',
             loading: true
-            // isAuthenticating: true,
-            // isAuthenticated: false
         }
     }
     
@@ -24,7 +23,6 @@ class StocksPage extends Component {
     getFirebaseData = () => {
         database.ref(`/users/${auth.currentUser.uid}`) // this is pretty much an event listener
         .on('value', (snapshot) => { // firebase broadcasts when database values change 
-            //  console.log(snapshot);   
             this.setState(() => {
                 return {
                     stockEntries: snapshot.val() || {},
@@ -111,35 +109,8 @@ class StocksPage extends Component {
             tbody.appendChild(row);
         });
 
-
-        // myStocks.forEach(dataRow => {
-        //     var row = document.createElement("tr"); // create row object
-
-        //     dataRow.forEach(cellVal => {
-        //         var cell = document.createElement("td"); // create cell object
-        //         cell.appendChild(document.createTextNode(cellVal)); // insert value into cell
-        //         row.appendChild(cell); // append cell to row
-        //     });
-        //     tbody.appendChild(row);
-        // });
         return myStocks;
     }
-
-    // authUser = () => {
-    //     return new Promise((resolve, reject) => {
-    //         auth.onAuthStateChanged((user) => {
-    //             if (user) {
-    //                 resolve(user);
-    //             } else {
-    //                 reject('User not logged in yet');
-    //             }
-    //         });
-    //     });
-    // }
-
-    // userHasAuthenticated = (verified) => {
-    //     this.setState({ isAuthenticated: verified });
-    // }
 
     render() {
         const stocks = this.state.stockEntries;
@@ -154,8 +125,8 @@ class StocksPage extends Component {
                 <h1 id="secondary-content">My Stocks</h1>
 
                 {Object.keys(this.state.stockEntries).map((key) => {
-                    return <StockEntry key={key} entry={this.state.stockEntries[key]} />;
-                })}
+                     return <StockEntry key={key} entry={this.state.stockEntries[key]} />; 
+                 })} 
 
                 {/* <br />
                 <div className="main">
@@ -164,7 +135,10 @@ class StocksPage extends Component {
                     </table>
                 </div>
                 <br /> */}
-                {/* {this.getUserStocks()} */}
+                {/* {Object.keys(this.state.stockEntries).map((key) => { */}
+                    {/* return <StockTableEntry key={key} entry={this.state.stockEntries[key]} />; */}
+                {/* })} */}
+                
                 <div className="main">
                     <div className="search-stock-ticker">
                         <div className="input-controls">

@@ -4,15 +4,12 @@ html {
   }
   
   body {
-     /* background-color: $body-white; */
      position:relative;
      margin: 0 auto;
   }
   
   header {
-     /* border-bottom: 0.06rem dashed lightblue; */
      border-bottom: 0.04rem dotted rgb(255, 255, 50);
-     /* margin-bottom: .11rem; */
    }
   
   h2 {
@@ -25,15 +22,11 @@ html {
   
   p {
     font: bold normal 1rem Quicksand, sans-serif;
-    /* color: #584; */
-  
     line-height: 1rem;
-  
     padding: 0 0;
   }
   
   .body-chart-data {
-      /* position: relative; */
       width: 100%;
   }
   
@@ -116,28 +109,14 @@ html {
     flex-wrap: wrap;
     justify-content: center;
   }
-/* 
-  .main-stocks-chart-page {
-    width: 90rem;
-
-    position: relative;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  } */
   
 .stock-manager-body {
     background: rgb(255, 255, 50);
-    /* background: rgb(9, 169, 233); */
   }
 
 .stocks-navigation-bar {
-    /* background-color: rgb(207,166,120); */
-    /* background: rgb(12, 95, 190); */
     background:  darkorange;
     margin: 0;
-    /* width: 100%; */
     padding: 1em 1rem;
   }
 
@@ -161,7 +140,6 @@ html {
     color: white;
   }
   
-  /* change the color of link on hover*/
   .stocks-navigation-bar a:hover {
     background-color: rgb(255, 255, 50);
     color: black;
@@ -225,29 +203,23 @@ input[type="submit"] {
 
   table {
     width: 20%;
-    border: 0.01rem solid red;
-    border-radius: 0.6rem;
     background: rgb(245, 232, 54);
   }
 
   table td {
-    border: 0.005rem solid brown;
-    /* background: rgb(245, 232, 54); */
-    /* color: #594A49; */
-    /* border-radius: 0.6rem; */
+    border-bottom: 0.005rem solid lightsalmon;
     height: 1.2em;
     width: 5rem;
     padding: .5rem;
+    text-align: left;
+    padding-left: 2rem;
   }
 
   
 footer {
     margin-top: 1rem;
     padding-top: 1rem;
-    /* border-top: 0.1rem solid slateblue; */
     height: 10rem;
-    /* background: rgb(150, 185, 212); */
-    /* background: rgb(12, 95, 190); */
     background: darkorange;
   }
   
@@ -266,7 +238,10 @@ footer {
   
   #primary-content, #secondary-content, #third-content {
     font: 600 normal 2rem Quicksand, Comic Sans MS, Courier, Arial, sans-serif;
-    /* color: #aaa584; */
     text-align: center;
   
+  }
+
+  #secondary-content {
+      text-decoration: underline;
   }

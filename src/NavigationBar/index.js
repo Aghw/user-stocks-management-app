@@ -22,7 +22,6 @@ class NavigationBar extends Component {
     // in order to do that we will ad the componentDidMount
     componentDidMount() {
         auth.onAuthStateChanged((user) => {
-            console.log(user);
             this.setState(() => {
                 return { 
                     // isLoggedIn: user ? true : false 

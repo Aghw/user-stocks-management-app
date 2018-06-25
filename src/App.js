@@ -6,7 +6,7 @@ import HomePage from './HomePage';
 import StockPage from './StocksPage';
 import NavigationBar from './NavigationBar';
 import './StyleSheet/Stocks.css';
-// import Syncopate from url('https://fonts.googleapis.com/css?family=Syncopate')
+
 import {
   BrowserRouter as Router, Route
 } from 'react-router-dom';

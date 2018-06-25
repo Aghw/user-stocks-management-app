@@ -1,6 +1,6 @@
 {
   "projects": {
-    "staging": "stocks-manager",
-    "stagingStocks": "user-stocks-management-app"
+    "stockManager": "user-stocks-management-app",
+    "default": "user-stocks-management-app"
   }
 }
