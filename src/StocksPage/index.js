@@ -116,7 +116,7 @@ class StocksPage extends Component {
         const stocks = this.state.stockEntries;
         const userStocks =  Object.keys(stocks).map((key, index) => stocks[key]);
 
-       if (userStocks.length === 0 ) return null;
+    //    if (userStocks.length === 0 ) return null;
 
         return (
             <div className="main-stocks-chart-page">
