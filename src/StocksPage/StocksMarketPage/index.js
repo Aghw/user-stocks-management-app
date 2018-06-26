@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Chart } from 'react-google-charts';
 
+const cors = "https://cors-anywhere.herokuapp.com/"
 class StockMarket extends Component {
     constructor(props) {
         super(props);

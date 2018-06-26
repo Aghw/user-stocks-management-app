@@ -66,7 +66,7 @@ html {
   }
   
   .stock-data {
-    width: 80%;
+    width: 60%;
     margin: .5rem auto;
     margin-bottom: 3rem;
   
@@ -129,6 +129,7 @@ html {
   }
   
   .stocks-navigation-bar a {
+    font: 500 normal 2rem 'Shadows Into Light', Comic Sans MS, Courier, Arial, sans-serif;
     color: #F2F2F2;
     text-align: center;
     padding: 0.7rem 1rem;
@@ -174,7 +175,7 @@ input[type="submit"] {
 
 
 .search-stock-ticker {
-    width: 80%;
+    width: 60%;
   
     margin: .5rem auto;
     padding: 1rem auto;
@@ -192,7 +193,7 @@ input[type="submit"] {
 
   
   .input-controls {
-    width: 42%;
+    width: 55%;
     position: relative;
     display:flex;
     flex-direction: row;
