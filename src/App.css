@@ -18,9 +18,12 @@
 }
 
 .App-title {
-  /* font-size: 1.5em; */
   font: 300 normal 2rem 'Shadows Into Light', Comic Sans MS, Courier, Arial, sans-serif;
   color: rgb(255, 255, 50);
+}
+
+.App-title::first-letter {
+  font: 600 normal 2rem 'Shadows Into Light', Comic Sans MS, Courier, Arial, sans-serif;
 }
 
 .App-intro {
