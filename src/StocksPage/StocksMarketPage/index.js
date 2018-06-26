@@ -55,15 +55,10 @@ class StockMarket extends Component {
     getStockPerformanceData = () => {
         const alpha_api = "CXUNEIO848QDTYRC";
         
-        // const myCompanies = this.props.userStocks;
-        // console.log("The stocks are: ", myCompanies);
         let mystocks = [];
-        // console.log("The length of this list is: ", myCompanies.length);
-        // myCompanies.forEach(e => //console.log("Company: ", e) );
-        // {
         let e = this.props.userStocks
             
-        const market_url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${e}&interval=5min&apikey=${alpha_api}`;
+        const market_url = `${cors}https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${e}&interval=5min&apikey=${alpha_api}`;
         fetch(market_url)
         .then(response => response.json())
         .then(data => {
@@ -94,7 +89,7 @@ class StockMarket extends Component {
         let comp_name = '';
         let metaData = [];
         var quandl_api = "89wdkfPK7YciSxS7kDaZ";
-        var market_url = `https://www.quandl.com/api/v3/datasets/WIKI/${ticker}/metadata.json?api_key=${quandl_api}`;
+        var market_url = `${cors}https://www.quandl.com/api/v3/datasets/WIKI/${ticker}/metadata.json?api_key=${quandl_api}`;
         fetch(market_url)
         .then(response => response.json())
         .then(data => {
